@@ -344,11 +344,19 @@ func main() {
 		if err != nil {
 			log.Fatalf("Setup failed: %v", err)
 		}
-
 		fmt.Println("Setup complete. See README.md for instructions.")
 		return
 	}
 	var err error
+
+	uploadsDir := "uploads"
+	if _, err := os.Stat(uploadsDir); os.IsNotExist(err) {
+		err := os.MkdirAll(uploadsDir, 0755)
+		if err != nil {
+			log.Fatalf("Failed to create uploads directory: %v", err)
+		}
+	}
+
 	db, err = sql.Open("sqlite3", "uploads/records.db")
 	if err != nil {
 		panic(err)
@@ -364,13 +372,7 @@ func main() {
 		panic(err)
 	}
 	// Ensure uploads directory exists
-	uploadsDir := "uploads"
-	if _, err := os.Stat(uploadsDir); os.IsNotExist(err) {
-		err := os.MkdirAll(uploadsDir, 0755)
-		if err != nil {
-			log.Fatalf("Failed to create uploads directory: %v", err)
-		}
-	}
+
 	http.Handle("/ws/screen", wsHandler("screen"))
 	http.Handle("/ws/webcam", wsHandler("webcam"))
 	http.HandleFunc("/final", finalHandler)
