@@ -1,4 +1,4 @@
-# Video Call Backend Setup
+# Video Recording Backend Setup
 
 ## About
 
