@@ -145,7 +145,7 @@ startBtn.onclick = async () => {
   mediaRecorderScreen.ondataavailable = e => {
     if (e.data.size > 0) {
       wsScreen.readyState === 1 && wsScreen.send(e.data);
-      recordedScreenChunks.push(e.data);
+      //recordedScreenChunks.push(e.data);
     }
   };
   // Ensure all remaining chunks are sent on stop
@@ -164,7 +164,7 @@ startBtn.onclick = async () => {
   mediaRecorderWebcam.ondataavailable = e => {
     if (e.data.size > 0) {
       wsWebcam.readyState === 1 && wsWebcam.send(e.data);
-      recordedWebcamChunks.push(e.data);
+      //recordedWebcamChunks.push(e.data);
     }
   };
   // Ensure all remaining chunks are sent on stop
